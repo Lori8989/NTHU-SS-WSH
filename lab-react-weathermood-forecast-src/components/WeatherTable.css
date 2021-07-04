@@ -1,0 +1,14 @@
+/* WeatherTable.css */
+.weather-table {
+    position: relative;
+    font-size:large;
+    z-index: 100;
+    max-width: 35rem;
+    margin: 0 auto;
+    color: white;
+}
+@media only screen and (max-width: 600px) {
+    .hide_mb {
+        display: none;
+    }
+}
