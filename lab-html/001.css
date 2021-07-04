@@ -1,0 +1,26 @@
+caption { caption-side: top; }
+
+.tb ,p{
+    color: crimson;
+}
+
+td:hover ,th{
+    color: darkorchid;
+    background-color: dimgray;
+    font-size: larger;
+}
+
+p::first-letter {
+    font-style: italic, oblique;
+    font-size: xx-large;
+}
+
+li {
+    display: inline;
+    font-size: large;
+}
+
+#back_top:hover {
+    font-size: large;
+    color: firebrick;
+}
