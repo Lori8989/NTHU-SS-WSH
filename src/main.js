@@ -1,7 +1,6 @@
 import Component from  './component.js';
-import Navbar from  './navbar.js';
-import Board from  './board.js';
-import Deck from  './deck.js';
+import Banner from  './banner.js';
+import Grid from  './grid.js';
 import Reset from  './reset.js';
 
 import './main.css';
@@ -13,62 +12,53 @@ export default class Main extends Component {
 
     constructor(root) {
         super(root);
-console.log('into main  ');
-        this.navbar = new Navbar(root.querySelector('.navbar'));
-        this.navbar.on('easymode', this.handleNavbareasyClick.bind(this));
-        this.navbar.on('hardmode', this.handleNavbarhardClick.bind(this));
-        this.navbar.on('nightmaremode', this.handleNavbarnightmareClick.bind(this));
-console.log('finish navbar  ');
-        this.deck = new Deck(root.querySelector('.deck'));
-        this.deck.on('wrongClick', this.handleDeckWrongClick.bind(this));
-        this.deck.on('rightClick', this.handleDeckRightClick.bind(this));
 
-        this.board = new Board(root.querySelector('.board'), this.deck.getPickedColor());
-
+        this.whichTurn = "O";
+        this.banner = new Banner(root.querySelector('.banner'));
+        this.grid = new Grid(root.querySelector('.grid'));
+        this.grid.on('click', this.handleCellClick.bind(this));
+        this.grid.on('finish', this.handleFinishGame.bind(this));
+        // TODO:
+        // In this constructor, you should new a Reset component and handle its fire event here.
         this.reset = new Reset(root.querySelector('.reset'));
-        this.reset.on('click', this.handleResetClick.bind(this));
-
-        //this.easy = new Easy(root.querySelector('#easy'));
-        //this.easy.on('click', this.handleEasyClick.bind(this));
+        this.reset.on('reset', this.handleResetClick.bind(this));
+        this.grid.setTurn(this.whichTurn);
     }
 
-    handleDeckWrongClick(firer) {
-        this.board.showWrongMessage();
+    handleCellClick() {
+        // +TODO:
+        // In this function, you should handle the cell click,
+        // including setting self property and calling child components' methods(setTurn).
+
+        if(this.whichTurn === 'O'){
+            this.whichTurn = 'X';
+            this.banner.turn.setTurn(this.whichTurn);
+        }
+        else{
+            this.whichTurn = 'O';
+            this.banner.turn.setTurn('O');
+        }
+
     }
 
-    handleDeckRightClick(firer, pickedColor) {
-        this.root.style.backgroundColor = pickedColor;
-        this.board.showCorrectMessage();
-        this.reset.showPlayAgain();
+    handleFinishGame(firer, mode) {
+        if(mode === "win"){
+            this.banner.setScore(this.whichTurn);
+        }
+
+        this.whichTurn = "O";
+        this.grid.reset(this.whichTurn);
+        this.banner.turn.setTurn(this.whichTurn);
     }
-
-    handleResetClick(firer) {
-        this.root.style.backgroundColor = "#232323";
-        this.deck.reset();
-        this.board.reset(this.deck.getPickedColor());
-        firer.reset();
-    }
-
-    handleNavbareasyClick(firer) {
-        this.reset.show();
-        //what happen while click easy
-        this.root.style.backgroundColor = "#232323";
-        this.deck.easy();
-        this.board.easy();
-    }
-
-    handleNavbarhardClick(firer) {
-        this.reset.show();
-        this.root.style.backgroundColor = "#232323";
-
-        this.deck.hard();
-        this.board.hard();
-    }
-
-    handleNavbarnightmareClick(firer) {
-        this.reset.hide();
-        this.deck.nightmare();
-        this.board.nightmare();
+    handleResetClick() {
+        console.log('into main reset');
+        // TODO:
+        // In this function, you shoud reset self property
+        // and calling child components' methods(reset). 
+        this.banner.reset('X');
+        this.banner.reset('O');
+        this.banner.turn.setTurn('O');
+        this.grid.reset();
     }
 }
 
