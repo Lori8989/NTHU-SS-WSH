@@ -1,0 +1,53 @@
+.navbar {
+    background: white;
+    padding: 1rem;
+    color: #484848;
+}
+
+.navbar .flex {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar .brand {
+    font-weight: bold;
+    padding: 0 1rem;
+}
+
+.navbar .about {
+    margin-left: auto;
+    color: #bbb;
+}
+
+.navbar .selected {
+    color: white!important;
+    background-color:cadetblue!important;
+}
+
+.selected:hover {
+    color: white!important;
+    background-color:cadetblue!important;
+}
+
+.mode:hover {
+    color:cadetblue!important;
+}
+
+
+#easy, #hard, #nightmare {
+    display: inline;
+	margin: auto;
+    padding: auto;
+	outline: none;
+	border: none;
+    border-radius: 999rem;
+    background-color: white;
+	font-size: 1rem;
+    font-weight: 700;
+    color: #484848;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+	cursor: pointer;
+}
